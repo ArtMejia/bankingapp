@@ -36,4 +36,17 @@ public class AccountController {
         AccountModel updateAccount = accountRepository.save(updatedAccount);
         return new ResponseEntity<>(updateAccount, HttpStatus.OK);
     }
+
+    @DeleteMapping("/all")
+    public ResponseEntity<AccountModel> deleteAccounts() {
+        long count = accountRepository.count();
+        accountRepository.deleteAll();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("user/{id}")
+    public ResponseEntity<AccountModel> deleteById(@PathVariable("id") long id) {
+        accountRepository.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
