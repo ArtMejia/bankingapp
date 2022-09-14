@@ -14,39 +14,75 @@ public class AccountController {
     private AccountRepository accountRepository;
 
     @PostMapping("/add")
-    public ResponseEntity<AccountModel> createAccount(@RequestBody AccountModel newAccount) {
-        AccountModel savedAccount = accountRepository.save(newAccount);
-        return new ResponseEntity<>(savedAccount, HttpStatus.CREATED);
+    public ResponseEntity<?> createAccount(@RequestBody AccountModel newAccount) {
+        try {
+            AccountModel savedAccount = accountRepository.save(newAccount);
+            return new ResponseEntity<>(savedAccount, HttpStatus.CREATED);
+        } catch (Exception e) {
+            System.out.println(e.getClass());
+            System.out.println(e.getMessage());
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 
     @GetMapping("/all")
-    public ResponseEntity<Iterable<AccountModel>> getAllAccounts() {
-        Iterable<AccountModel> allAccounts = accountRepository.findAll();
-        return new ResponseEntity<>(allAccounts, HttpStatus.OK);
+    public ResponseEntity<?> getAllAccounts() {
+        try {
+            Iterable<AccountModel> allAccounts = accountRepository.findAll();
+            return new ResponseEntity<>(allAccounts, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getClass());
+            System.out.println(e.getMessage());
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<AccountModel> getUserById(@PathVariable ("id") Long id) {
-        AccountModel foundAccount = accountRepository.findById(id).get();
-        return new ResponseEntity<>(foundAccount, HttpStatus.OK);
+    public ResponseEntity<?> getUserById(@PathVariable ("id") Long id) {
+        try {
+            AccountModel foundAccount = accountRepository.findById(id).get();
+            return new ResponseEntity<>(foundAccount, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getClass());
+            System.out.println(e.getMessage());
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 
     @PutMapping("/user")
-    public ResponseEntity<AccountModel> updateAccount(@RequestBody AccountModel updatedAccount) {
-        AccountModel updateAccount = accountRepository.save(updatedAccount);
-        return new ResponseEntity<>(updateAccount, HttpStatus.OK);
+    public ResponseEntity<?> updateAccount(@RequestBody AccountModel updatedAccount) {
+        try {
+            AccountModel updateAccount = accountRepository.save(updatedAccount);
+            return new ResponseEntity<>(updateAccount, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getClass());
+            System.out.println(e.getMessage());
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 
     @DeleteMapping("/all")
-    public ResponseEntity<AccountModel> deleteAccounts() {
-        long count = accountRepository.count();
-        accountRepository.deleteAll();
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<?> deleteAccounts() {
+        try {
+            long count = accountRepository.count();
+            accountRepository.deleteAll();
+            return new ResponseEntity("Deleted Users: " + count, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getClass());
+            System.out.println(e.getMessage());
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 
     @DeleteMapping("user/{id}")
-    public ResponseEntity<AccountModel> deleteById(@PathVariable("id") long id) {
-        accountRepository.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<?> deleteById(@PathVariable("id") long id) {
+        try {
+            accountRepository.deleteById(id);
+            return new ResponseEntity("Deleted User With ID: " + id, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getClass());
+            System.out.println(e.getMessage());
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 }
