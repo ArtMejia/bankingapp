@@ -2,17 +2,30 @@ package com.careerdevs.bankingapp.models;
 
 import javax.persistence.*;
 
-@Entity // This tells Hibernate to make a table out of this class
-@Table(name="User")
+@Entity
+@Table(name="UserAccount")
 public class UserModel {
+
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
-
     private String name;
+    private int age;
+    private int accountNumber;
+    private double balance;
 
-    private String email;
+
+    public UserModel() {
+    }
+
+    public UserModel(Long id, String name, int age, int accountNumber, double balance) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.accountNumber = accountNumber;
+        this.balance = balance;
+    }
 
     public Long getId() {
         return id;
@@ -30,11 +43,27 @@ public class UserModel {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public int getAge() {
+        return age;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(int accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 }

@@ -1,22 +1,22 @@
 package com.careerdevs.bankingapp.controllers;
 
-import com.careerdevs.bankingapp.models.AccountModel;
-import com.careerdevs.bankingapp.repositories.AccountRepository;
+import com.careerdevs.bankingapp.models.UserModel;
+import com.careerdevs.bankingapp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/account")
-public class AccountController {
+@RequestMapping("/user")
+public class UserController {
     @Autowired
-    private AccountRepository accountRepository;
+    private UserRepository userRepository;
 
     @PostMapping("/add")
-    public ResponseEntity<?> createAccount(@RequestBody AccountModel newAccount) {
+    public ResponseEntity<?> createAccount(@RequestBody UserModel newAccount) {
         try {
-            AccountModel savedAccount = accountRepository.save(newAccount);
+            UserModel savedAccount = userRepository.save(newAccount);
             return new ResponseEntity<>(savedAccount, HttpStatus.CREATED);
         } catch (Exception e) {
             System.out.println(e.getClass());
@@ -28,7 +28,7 @@ public class AccountController {
     @GetMapping("/all")
     public ResponseEntity<?> getAllAccounts() {
         try {
-            Iterable<AccountModel> allAccounts = accountRepository.findAll();
+            Iterable<UserModel> allAccounts = userRepository.findAll();
             return new ResponseEntity<>(allAccounts, HttpStatus.OK);
         } catch (Exception e) {
             System.out.println(e.getClass());
@@ -37,10 +37,11 @@ public class AccountController {
         }
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> getUserById(@PathVariable ("id") Long id) {
         try {
-            AccountModel foundAccount = accountRepository.findById(id).get();
+            UserModel foundAccount = userRepository.findById(id).get();
+//            if (foundAccount.isEmpty()) return ResponseEntity.status(404).body("User Not Found With ID: " + id);
             return new ResponseEntity<>(foundAccount, HttpStatus.OK);
         } catch (Exception e) {
             System.out.println(e.getClass());
@@ -50,9 +51,9 @@ public class AccountController {
     }
 
     @PutMapping("/user")
-    public ResponseEntity<?> updateAccount(@RequestBody AccountModel updatedAccount) {
+    public ResponseEntity<?> updateAccount(@RequestBody UserModel updatedAccount) {
         try {
-            AccountModel updateAccount = accountRepository.save(updatedAccount);
+            UserModel updateAccount = userRepository.save(updatedAccount);
             return new ResponseEntity<>(updateAccount, HttpStatus.OK);
         } catch (Exception e) {
             System.out.println(e.getClass());
@@ -64,8 +65,8 @@ public class AccountController {
     @DeleteMapping("/all")
     public ResponseEntity<?> deleteAccounts() {
         try {
-            long count = accountRepository.count();
-            accountRepository.deleteAll();
+            long count = userRepository.count();
+            userRepository.deleteAll();
             return new ResponseEntity("Deleted Users: " + count, HttpStatus.OK);
         } catch (Exception e) {
             System.out.println(e.getClass());
@@ -77,7 +78,7 @@ public class AccountController {
     @DeleteMapping("user/{id}")
     public ResponseEntity<?> deleteById(@PathVariable("id") long id) {
         try {
-            accountRepository.deleteById(id);
+            userRepository.deleteById(id);
             return new ResponseEntity("Deleted User With ID: " + id, HttpStatus.OK);
         } catch (Exception e) {
             System.out.println(e.getClass());
