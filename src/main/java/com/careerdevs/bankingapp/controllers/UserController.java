@@ -14,7 +14,7 @@ public class UserController {
     private UserRepository userRepository;
 
     @PostMapping("/add")
-    public ResponseEntity<?> createAccount(@RequestBody UserModel newAccount) {
+    public ResponseEntity<?> createUser(@RequestBody UserModel newAccount) {
         try {
             UserModel savedAccount = userRepository.save(newAccount);
             return new ResponseEntity<>(savedAccount, HttpStatus.CREATED);
@@ -26,7 +26,7 @@ public class UserController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<?> getAllAccounts() {
+    public ResponseEntity<?> getAllUser() {
         try {
             Iterable<UserModel> allAccounts = userRepository.findAll();
             return new ResponseEntity<>(allAccounts, HttpStatus.OK);
@@ -51,7 +51,7 @@ public class UserController {
     }
 
     @PutMapping("/user")
-    public ResponseEntity<?> updateAccount(@RequestBody UserModel updatedAccount) {
+    public ResponseEntity<?> updateUser(@RequestBody UserModel updatedAccount) {
         try {
             UserModel updateAccount = userRepository.save(updatedAccount);
             return new ResponseEntity<>(updateAccount, HttpStatus.OK);
@@ -63,7 +63,7 @@ public class UserController {
     }
 
     @DeleteMapping("/all")
-    public ResponseEntity<?> deleteAccounts() {
+    public ResponseEntity<?> deleteUser() {
         try {
             long count = userRepository.count();
             userRepository.deleteAll();
