@@ -1,6 +1,7 @@
 package com.careerdevs.bankingapp.controllers;
 
 import com.careerdevs.bankingapp.models.UserModel;
+import com.careerdevs.bankingapp.repositories.AccountRepository;
 import com.careerdevs.bankingapp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private AccountRepository accountRepository;
 
     @PostMapping("/add")
     public ResponseEntity<?> createUser(@RequestBody UserModel newAccount) {

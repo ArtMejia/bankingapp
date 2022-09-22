@@ -3,7 +3,7 @@ package com.careerdevs.bankingapp.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name="UserAccount")
+@Table(name="user")
 public class UserModel {
 
     @Id
@@ -12,19 +12,19 @@ public class UserModel {
     private Long id;
     private String name;
     private int age;
-    private int accountNumber;
-    private double balance;
+    private String phoneNum;
+    private String address;
 
 
     public UserModel() {
     }
 
-    public UserModel(Long id, String name, int age, int accountNumber, double balance) {
+    public UserModel(Long id, String name, int age, String phoneNum, String address) {
         this.id = id;
         this.name = name;
         this.age = age;
-        this.accountNumber = accountNumber;
-        this.balance = balance;
+        this.phoneNum = phoneNum;
+        this.address = address;
     }
 
     public Long getId() {
@@ -51,19 +51,19 @@ public class UserModel {
         this.age = age;
     }
 
-    public int getAccountNumber() {
-        return accountNumber;
+    public String getPhoneNum() {
+        return phoneNum;
     }
 
-    public void setAccountNumber(int accountNumber) {
-        this.accountNumber = accountNumber;
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
     }
 
-    public double getBalance() {
-        return balance;
+    public String getAddress() {
+        return address;
     }
 
-    public void setBalance(double balance) {
-        this.balance = balance;
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
