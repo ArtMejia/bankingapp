@@ -6,9 +6,12 @@ import javax.persistence.*;
 @Table(name="user")
 public class UserModel {
 
+    // User should be linked to Checking and Savings accounts
+    // User can have multiple accounts of each account type
+    // Each account should only have one user/owner
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
     private String name;
     private int age;

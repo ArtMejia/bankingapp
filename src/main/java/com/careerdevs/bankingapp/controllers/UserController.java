@@ -18,9 +18,9 @@ public class UserController {
     private AccountRepository accountRepository;
 
     @PostMapping("/add")
-    public ResponseEntity<?> createUser(@RequestBody UserModel newAccount) {
+    public ResponseEntity<?> createUser(@RequestBody UserModel newUser) {
         try {
-            UserModel savedAccount = userRepository.save(newAccount);
+            UserModel savedAccount = userRepository.save(newUser);
             return new ResponseEntity<>(savedAccount, HttpStatus.CREATED);
         } catch (Exception e) {
             System.out.println(e.getClass());
@@ -80,7 +80,7 @@ public class UserController {
     }
 
     @DeleteMapping("user/{id}")
-    public ResponseEntity<?> deleteById(@PathVariable("id") long id) {
+    public ResponseEntity<?> deleteUserById(@PathVariable("id") long id) {
         try {
             userRepository.deleteById(id);
             return new ResponseEntity("Deleted User With ID: " + id, HttpStatus.OK);
