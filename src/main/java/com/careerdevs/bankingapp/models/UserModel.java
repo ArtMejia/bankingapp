@@ -1,6 +1,9 @@
 package com.careerdevs.bankingapp.models;
 
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
+
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name="user")
@@ -17,6 +20,10 @@ public class UserModel {
     private int age;
     private String phoneNum;
     private String address;
+
+    @OneToMany(mappedBy = "accounts", fetch=FetchType.LAZY)
+    @JsonIncludeProperties("accountNumber")
+    private Set<AccountModel> accountModelSet;
 
 
     public UserModel() {
